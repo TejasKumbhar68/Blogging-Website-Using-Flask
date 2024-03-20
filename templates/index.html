@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block title %}
+  <title>Index Page</title>
+{% endblock title %}
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+      <strong>Message : </strong> {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+  <h1>This is Index Page!</h1>
+  <div class="row mb-2">
+  {% for blog in data %}
+    
+    <div class="col-md-6 my-4">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{blog.title}}</h3>
+          <div class="mb-1 text-muted">{{blog.pub_date}}</div>
+          <h6>Author :- {{blog.author}}</h6>
+          <p class="card-text mb-auto">{{blog.content}}</p>
+          <a href="/blogdetail/{{blog.blog_id}}" class="stretched-link btn btn-primary">Continue reading</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock body %}
